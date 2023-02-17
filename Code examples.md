@@ -1,6 +1,12 @@
 But first, how to upload code to github
 
-first, use git init to initialize an empty repo
+first, use git init to initialize an empty repo in terminal, inside the folder with the content to upload 
+then use git add -A
+git commit -m "a message here"
+git push
+if prompted, git push --set-upstream origin main
+
+When updating github, you don't need to do init, and should not need to do upstream again
 
 
 Data types: https://www.tutorialsteacher.com/csharp/csharp-data-types
