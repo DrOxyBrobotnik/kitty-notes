@@ -169,6 +169,116 @@ string MethodExample(string katt1, string katt2)
 }
 ```
 
+**Classes**
+
+Classes are basically custom data types, capable of doing many things. These classes operate on objects, which are instances of this class. It's common practice to create classes in a different file, for the sake of readability.
+
+To create a class, you would first of all right click your project name in solution explorer, select add, then class, and give the class a name. This will set up an empty class file. The syntax would look like this:
+```c#
+//the internal keyword means that the class cannot be accessed from another project in the solution. While creating a class file will include this per default, it's not necessary. You can just use class Name. In single project solution, its basically same as public.
+internal class Katt
+{
+
+}
+//then, to add to this class, you would first choose wether the field would be private or public, then the data type, and finally the name of said attribute, naturally within the body {}
+public string fluffiness;
+
+//this will create a field named fluffiness. To then use it in your main file, you would create an object and then call upon the property using a .
+Katt myKatt = new Katt();
+
+myKatt.fluffiness = "Very":
+
+//this will assign a string to the field that can then be used.
+
+
+
+```
+
+**Constructors**
+
+Constructors are methods for classes. Their structure works like one, too.
+```c#
+public Name(string name)
+{
+    //inside here, you may add whatever you wish to add to the class. For instance, if you were to add this function, then "Hello" would be printed out for every object, first in order. The name of the constructor must match that of the class, which it exists inside of. 
+    Console.WriteLine("Hello");
+}
+    //However, you may also add to the constructor parameters. If you were to add string name to them then you would add a new variable.
+//This would then be invoked in the object, like a method.
+Katt myKatt = new Katt("Cumma");
+//We have now decided what the name will be. However, if we wish to use it then we must do so inside the actual constructor.
+public Name(string name)
+{
+   Console.WriteLine(name);
+   //this can be concatenated with other things, like strings. It's basically building with code.
+}
+
+```
+
+Another way to do the same thing is to add fields to the constructor instead. This will allow the user to pass in what the fields will contain inside the object parameters.
+
+```c#
+            Katt kittykatt = new Katt();
+            kittykatt.author = "Me :3";
+            kittykatt.Title = "Limsa memories";
+            kittykatt.pages = 666;
+
+            Console.WriteLine(
+            $"Author: {kittykatt.author}\n" +
+            $"Title: {kittykatt.Title}\n" +
+            $"Pages: {kittykatt.pages}");
+
+```
+Instead of doing this, the following can be changed.
+```c#
+//from
+
+internal class Katt
+    {
+        public string Title;
+        public string author;
+        public int pages;
+
+        public Katt(string aTitle, string aAuthor, int aPages) 
+        {
+            
+        }
+    }
+```
+
+```c#
+//to
+internal class Katt
+    {
+        public string Title;
+        public string author;
+        public int pages;
+
+        public Katt(string aTitle, string aAuthor, int aPages) 
+        {
+            Title = aTitle;
+            author = aAuthor;
+            pages = aPages;
+        }
+    }
+```
+This allows the user to pass in each field inside object parameters
+So instead of the previous class structure, we'd have
+```c#
+             Katt kitty = new Katt(
+            "Bunny enthusiast",
+            "How to properly eat rabbits",
+            699);
+
+```
+This will produce the same result, except the user is now allowed to pass in whatever they want, as long as its the correct data types.
+
+Put all together, the end result will look like this 
+https://cdn.discordapp.com/attachments/1043148467628933161/1077930915394768896/image.png main file
+https://cdn.discordapp.com/attachments/1043148467628933161/1077931263563931648/image.png class file
+
+Multiple constructors can be created.
+
 How to count legs of animals:
 
 ```c#
