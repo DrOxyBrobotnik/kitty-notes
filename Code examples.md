@@ -279,6 +279,125 @@ https://cdn.discordapp.com/attachments/1043148467628933161/1077931263563931648/i
 
 Multiple constructors can be created.
 
+**The dot**
+
+It's important to be able to access members of a class. Members are functions written into a class, such as methods. To do this, you would first enter the name of your object, followed by a dot, and then the name of the member.
+An easy example would be 
+```c#
+var number = 5; 
+var numberAsText = number.ToString();
+```
+
+first variable is an integar. In C#, all data types are classes, meaning they have built in methods. For exmple, ToString converts int into a string. The same structure works for anything not restricted by an access modifier.
+
+It's also possible to access members on the same line that the object is created.
+
+```C#
+var classy = new ClassName().Method()
+```
+
+The downside to this is that there is no reference. You cannot save the object in a variable and access it later in this way. Also, var can stand in for any data type, so in order to keep the code flexible, its being used here so the compiler can figure out what it stands in for.
+
+**Getters and setters**
+
+These are called properties. Common practice is to use these in place of fields if you just wish to make something public in general. However, for many reasons you may want to make certain fields private. The way you would go about this is by using the same field structure but using private instead of public. This now means that particular field cannot be accessed from outside of the class.
+
+To make this accessible, we would use something called a getter.
+```c#
+private string myProperty; 
+public string thisProperty { get { return myProperty; } }
+```
+This means this field can now be accessed from outside the class, using the get property, that has been informed what should be returned. That being said, the whole reason we made the field private was to prevent undue outside tampering. You can use the set; property to determine what the field can be used for. Say for example that we wanted to create ratings for movies. We would then do it like this
+```c#
+ internal class Movies
+    {
+        public string title;
+        public string director;
+        private string rating;
+
+        public Movies(string aTtitle, string aDirector, string aRating) 
+        {
+            title = aTtitle;
+            director = aDirector;
+            Rating = aRating;
+        }
+
+        public string Rating
+        {
+            get { return rating; }
+            set {
+                if(value == "nsfw" || value == "SFW") 
+                {
+                    rating = value;
+                }
+                else 
+                {
+                    rating = "NR";
+                }
+            }
+        }
+    }
+```
+With this code, there are only two ratings that can be printed out by using Rating. If any other rating is set, then NR will be printed out instead. This is why you would use fields in the first place.
+Ultimately, get; and set; are methods with a fancy declaration, used to create fields in the background, hence why said fields can be skipped in favor of properties, unless when used like in the above example. While they are methods, they operate like fields, meaning they don't use ()
+
+The dot adds separation as well. What happens in the above example is that whatever is before the dot is executed first, then whatever is returned is being acted upon when executing the right side of the dot. It always goes from left to right. So in addition to giving you access to whatever isn't restricted by an access modifier, . also dictates stages of execution and returned values. You will see everything you can access using . in intellisense.
+
+In proper C# coding, there is always a field involved in classes, just often in the background.
+For instance, this code will generate a private string field in the background using public properties. This isn't of much weight, since this doesn't give you access to this private string field, rather, it is generated at the time of compilation. We just work with the property itself. 
+
+```C#
+public class ClassName
+{
+   public string Name { get; set; }
+}
+```
+If wishing to give the getter and the setter additional instructions, they will need their own brackets for this, but like in the below example, they will always remain inside the brackets of the field itself.
+
+Ultimately, the relationship between getter, setter, and the methods you add works as so;
+get is executed when accessing the property, set is executed when writing to the property.
+Whatever you do inside these methods is up to you, but they are pretty much always used to read and write to a private field with some optional side effects.
+
+**Throw**
+
+Code have to account for every possible outcome. An outcome that is not handled will result in a crash. To this end, there is the keyword throw, which is used to create instructions on what to do in such cases. In this example, a string of text will be generated if you attempt to set the value of the field to null, which is your way to handle that particular exception.
+```C#
+namespace kittymessing
+{
+    public class testclass
+    {
+        private string _name;
+        public string Name 
+        {
+            get { return _name; }
+            set 
+            {
+                if(value == null) 
+                {
+                    throw new ArgumentNullException("You tried to assign null"); 
+
+                    _name = value;
+                }
+            }
+        }
+        
+    }
+}
+```
+To then trigger that specific scenario, you would create an object in the main file and assign this field to null. 
+```C#
+testclass thisClass = new testclass();
+thisClass.Name = null;
+```
+
+It's important to remember what does what. This code contains 3 properties that can all be accessed and found
+```c#
+        public string Rating { get; set; }
+        public string Rating2 { get; private set; }
+        public string Rating3 { get; }
+```
+The entire line is a property, so we have 3 properties. What enables them to be found outside the class is the public keyword on the left, but  if the getters were private it would be impossible to actually do something with them outside the class because they are not accessible outside the class.
+
 How to count legs of animals:
 
 ```c#
