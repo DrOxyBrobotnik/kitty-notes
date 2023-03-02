@@ -169,6 +169,27 @@ string MethodExample(string katt1, string katt2)
 }
 ```
 
+**Interpolation**
+
+Interpolation is a handy way to write strings without using + to concatenate them.
+Say for instance I have a class field that writes "that's-a a pizza" to the console.
+Say I wanted to add sauce and cheese. Then I would first use a blank slate syntax of ```
+```c#
+$"string {variable} string"
+```
+variable can be anything, in my example it's going to be a field holding a string, and I'm going to add to it.
+```c#
+$"sauce, cheese, {objectName.pizza}"
+
+```
+The resulting text in the console is going to be "sauce, cheese, that's-a a pizza"
+If I wanted to do it without interpolation, then I would instead need to do this
+```c#
+Console.WriteLine("sauce, " + "cheese, " + variable);
+```
+Overall, interpolation is great for saving both time and space and putting stuff inside strings in an orderly manner.
+
+
 **Classes**
 
 Classes are basically custom data types, capable of doing many things. These classes operate on objects, which are instances of this class. It's common practice to create classes in a different file, for the sake of readability.
@@ -298,6 +319,8 @@ var classy = new ClassName().Method()
 
 The downside to this is that there is no reference. You cannot save the object in a variable and access it later in this way. Also, var can stand in for any data type, so in order to keep the code flexible, its being used here so the compiler can figure out what it stands in for.
 
+The dot adds separation as well. What happens in the above example is that whatever is before the dot is executed first, then whatever is returned is being acted upon when executing the right side of the dot. It always goes from left to right. So in addition to giving you access to whatever isn't restricted by an access modifier, . also dictates stages of execution and returned values. You will see everything you can access using . in intellisense.
+
 **Getters and setters**
 
 These are called properties. Common practice is to use these in place of fields if you just wish to make something public in general. However, for many reasons you may want to make certain fields private. The way you would go about this is by using the same field structure but using private instead of public. This now means that particular field cannot be accessed from outside of the class.
@@ -307,7 +330,7 @@ To make this accessible, we would use something called a getter.
 private string myProperty; 
 public string thisProperty { get { return myProperty; } }
 ```
-This means this field can now be accessed from outside the class, using the get property, that has been informed what should be returned. That being said, the whole reason we made the field private was to prevent undue outside tampering. You can use the set; property to determine what the field can be used for. Say for example that we wanted to create ratings for movies. We would then do it like this
+This means this field can now be accessed from outside the class, using the get property, that has been informed what should be returned. That being said, the whole reason we made the field private was to prevent undue outside tampering. You can use the set; property to determine what the field can be used for. Say for example that we wanted to create ratings for movies. We would then do it like this. Of note is also that the private part of the string being returned won't block access from outside the class. This is controlled by the property (the line containing the getter), that still has the keyword public, meaning it is accessible.
 ```c#
  internal class Movies
     {
@@ -340,8 +363,24 @@ This means this field can now be accessed from outside the class, using the get 
 ```
 With this code, there are only two ratings that can be printed out by using Rating. If any other rating is set, then NR will be printed out instead. This is why you would use fields in the first place.
 Ultimately, get; and set; are methods with a fancy declaration, used to create fields in the background, hence why said fields can be skipped in favor of properties, unless when used like in the above example. While they are methods, they operate like fields, meaning they don't use ()
+To clarify setters, they are used to assign values to properties. If you don't include a set; with your get; then you can access the property but you can't assign anything to the property at all. If you make a custom setter then that will be executed, and if you don't and just use set; as is then it just assigns the value to the property as it would with any field or variable. The blank slate code looks like this
 
-The dot adds separation as well. What happens in the above example is that whatever is before the dot is executed first, then whatever is returned is being acted upon when executing the right side of the dot. It always goes from left to right. So in addition to giving you access to whatever isn't restricted by an access modifier, . also dictates stages of execution and returned values. You will see everything you can access using . in intellisense.
+```C#
+{ 
+get { getter code goes here } 
+set { setter code goes here } 
+}
+```
+
+You may access methods from a class. To do so, you would use the object name then the method name, with appropriate . and (). 
+Code follows solid logic. If, for instance, a method is never invoked that means you either didnt do Name() or its under some condition that doesnt resolve to true
+Or if it gets invoked multiple times that means you have multiple Name() in your code
+
+```c#
+TestClass thisClass = new TestClass();
+//now say you want to write something using the method
+Console.WriteLine(thisClass.MyMethod());
+```
 
 In proper C# coding, there is always a field involved in classes, just often in the background.
 For instance, this code will generate a private string field in the background using public properties. This isn't of much weight, since this doesn't give you access to this private string field, rather, it is generated at the time of compilation. We just work with the property itself. 
