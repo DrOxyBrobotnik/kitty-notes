@@ -30,9 +30,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "5fc87abbea23c43b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Code examples.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -159,6 +171,6 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ea17763d8005e5bd",
+  "active": "5fc87abbea23c43b",
   "lastOpenFiles": []
 }

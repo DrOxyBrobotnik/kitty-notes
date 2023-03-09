@@ -391,11 +391,39 @@ public class ClassName
    public string Name { get; set; }
 }
 ```
-If wishing to give the getter and the setter additional instructions, they will need their own brackets for this, but like in the below example, they will always remain inside the brackets of the field itself.
+If wishing to give the getter and the setter additional instructions, they will need their own brackets for this, but they will always remain inside the brackets of the field itself.
 
 Ultimately, the relationship between getter, setter, and the methods you add works as so;
 get is executed when accessing the property, set is executed when writing to the property.
 Whatever you do inside these methods is up to you, but they are pretty much always used to read and write to a private field with some optional side effects.
+
+**Static class attributes**
+
+It is possible to create attributes that will always be present in an object if called. To do this, you use the static keyword and call it on the class itself, rather than on an object.
+Say for instance that in your class, you have a public string or int, like in the previous examples, but you add static to it first.
+```
+public static int SongCount = 0;
+```
+As you can see, you can also intialize values directly in the field. Because this is a static field, it can now, in main, be called directly rather than via object. Say the class this field exists inside is named Songs. Then you'd use ```Songs.SongCount``` to access it.
+You can do various things with this, for instance, if we put a ```SongCount++``` in the constructor and access this like so in main then it would count every object created on the class.
+
+**Classes in parameters**
+
+It is quite possible to pass a class into arguments of, say, a method. To do so, you would declare a method as always, then put the class name with a name inside the (). Classes are custom data types, and every time you declare a data type in arguments you must also give it a variable, much like how you can't call someone over at work unless you know the name to call them by. 
+
+To do this, then, your syntax could look like this
+```c#
+public void ClassMethod(GoodClass classy)
+{
+
+}
+```
+This now means you have something to work with. Now, when you do it like this, your syntax for working with "classy" would be the regular syntax used when working with objects.
+Say for instance you wanted to interpolate a string. You'd then do:
+```c#
+Console.WriteLine($"this is a {classy.classType} that does the job very {classy.classResult}");
+```
+You would use the exact same syntax when interpolating a string that uses an object acting on class fields. Of note is that this isn't creating an object in the method parameters. The whole point of parameters is to let the piece of code thats invoking your method decide what they want to pass as an argument, and in that way control behavior of your method. That is why you can't just create an object outside of the method and then use it in the method like you would when its in the arguments.
 
 **Throw**
 
