@@ -6,7 +6,13 @@ git commit -m "a message here"
 git push
 if prompted, git push --set-upstream origin main
 
-When updating github, you don't need to do init, and should not need to do upstream again
+When updating github, you don't need to do init, and should not need to do upstream again.
+
+**Useful one-off quotes**
+
+These are just important things to remember that are too short to warrant their own dedicated segment or that I don't know where else to fit in.
+
+Methods: Part to left of method name controls what you get BACK from the method, part inside () controls what you can pass INTO the method.
 
 
 Data types: https://www.tutorialsteacher.com/csharp/csharp-data-types
@@ -125,7 +131,8 @@ Then there is the for loop. This one just loops
 
 **Methods and invocations**
 
-Methods are basically something that can accept user input rather than working with hard coded values, such as a string or an int. It has three critical properties - return types, name, and arguments. An easy method would look something like this.
+Methods are basically something that can accept user input rather than working with hard coded values, such as a string or an int. It has three critical properties - return types, name, and arguments. An easy method would look something like this. But first, always remember the following: Part to left of method name controls what you get BACK from the method, part inside () controls what you can pass INTO the method
+
 
 ```c# 
 //of critical note is that you cannot both use the void type and a return
@@ -425,6 +432,82 @@ Console.WriteLine($"this is a {classy.classType} that does the job very {classy.
 ```
 You would use the exact same syntax when interpolating a string that uses an object acting on class fields. Of note is that this isn't creating an object in the method parameters. The whole point of parameters is to let the piece of code thats invoking your method decide what they want to pass as an argument, and in that way control behavior of your method. That is why you can't just create an object outside of the method and then use it in the method like you would when its in the arguments.
 
+**Linked lists**
+
+Linked lists are basically lists that reference each other. The closest analogy would be to imagine someone pointing at someone else who in turns points at someone else and so forth, to the end. The advantage this holds over a regular list is that lists can only contain so many things, and when that space runs out, you need to make more space, like adding more space to a parking lot. The disadvantage is in lists, you can access anything directly, while in a linked list you need to work down the references until you find what you are looking for. 
+
+To begin making a linked list, you first need a class. It could for instance look like this.
+```c#
+public class Nodes
+    {
+
+        public string Value { get; set; }
+        public int Length { get; set; } = 0;
+
+        public Nodes Next { get; set; }
+        public Nodes Previous { get; set; }
+
+        public Nodes(string value)
+        {
+            Value = value;
+        }
+
+        
+    }
+```
+This creates a class with properties that are going to be used to traverse the list and create what's called a double linked list.  However, the class will only be used within classes to achieve this. The class that will actually be used in Main is going to look like this. 
+```c#
+internal class KittyLinkedLists
+    {
+        private Nodes _head;
+
+        public int Length { get; set; } = 0;
+
+        public void Add(string value)
+        {
+            var node = new Nodes(value);
+
+            if (_head is null)
+            {
+                _head = node;
+            }
+            else
+            {
+                var lastNode = _head;
+                while (lastNode.Next is not null)
+                {
+                    lastNode = lastNode.Next;
+                }
+                lastNode.Next = node;
+            }
+
+            Length++;
+
+        }
+    }
+```
+
+What's going on here is that first of all, a private property is created, using the class itseself. Then a second property is created, with an int value named Length, with the intial value 0. After this comes a method containing a string variable as argument. This argument is basically something you will put inside a box, and the method is the thing that puts it in the box. So, we create an object of the class inside the method, with the item inside the box so its stored. 
+Then, an if condition is declared stating that if the first property resolved to null, then it equals the class. This is done to give the null scenario structure, like a skeleton inside a body. If this property does not result in null, then a new variable that we created will equal it instead. This variable then is given the Next property inside a while condition, and when this does not null, it, as it now is, will equal node. This is what lets it travel between the boxes.
+Finally, an incremeting counter is created that acts upon the length property.
+This is so that we can come back to main and do this.
+```c#
+internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var kittyList = new KittyLinkedLists();
+            kittyList.Add("Bunna");
+            kittyList.Add("Dumma");
+            kittyList.Add("Cumma");
+            kittyList.Add("Katt");
+            Console.WriteLine(KittyList.Length);
+
+        }
+    }
+```
+
+We meow create an object of the class holding the meat and potatos of this linked list, and use our custom Add method to add elements to this list. Finally, we make a Console.WriteLine and put our object along with the length property inside it, and will count the elements and tell us how many there are.
 **Throw**
 
 Code have to account for every possible outcome. An outcome that is not handled will result in a crash. To this end, there is the keyword throw, which is used to create instructions on what to do in such cases. In this example, a string of text will be generated if you attempt to set the value of the field to null, which is your way to handle that particular exception.
@@ -464,6 +547,12 @@ It's important to remember what does what. This code contains 3 properties that 
         public string Rating3 { get; }
 ```
 The entire line is a property, so we have 3 properties. What enables them to be found outside the class is the public keyword on the left, but  if the getters were private it would be impossible to actually do something with them outside the class because they are not accessible outside the class.
+
+**Interfaces**
+
+Interfaces are basically contratcs that allows you to use a list of things, but only provided that you actually use all of them.
+Using an interface is like using any other data type and can be used in syntax such as if scenarios, class inheritence, etc.
+The advantage of this is that you are drawing on a source that you won't need to change unless you wish to add to the interface for whatever reason, meaning things working together are independent of each other as long as they implement this interface.
 
 How to count legs of animals:
 
